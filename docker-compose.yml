@@ -1,0 +1,21 @@
+services:
+  web:
+    build: ./frontend
+    ports:
+      - "8000:8000"
+    # El servidor estático sirve directamente esta carpeta:
+    # los cambios en html/css/js se ven al refrescar el navegador.
+    volumes:
+      - ./frontend:/app
+
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    # Montamos el código para que dotnet watch recompile al guardar.
+    # Los volúmenes anónimos de obj/bin evitan mezclar artefactos del host (Windows)
+    # con los generados dentro del contenedor (Linux).
+    volumes:
+      - ./backend:/app
+      - /app/API/API/obj
+      - /app/API/API/bin
