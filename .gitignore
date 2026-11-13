@@ -7,3 +7,8 @@ Properties/
 .vs/
 *.user
 *.suo
+
+**/*.pdf
+**/*.md
+**/*.docx
+
