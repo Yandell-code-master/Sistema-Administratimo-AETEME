@@ -13,8 +13,12 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.9",
+    "clsx": "^2.1.1",
+    "motion": "^14.14.0",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.5",
+    "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
