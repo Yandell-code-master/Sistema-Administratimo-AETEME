@@ -40,6 +40,11 @@
     --color-on-error: #ffffff;
     --color-on-error-container: #93000a;
 
+    --color-warning: #ca8a04;
+    --color-warning-container: #fefce8;
+    --color-on-warning-container: #92400e;
+    --color-warning-border: #fde68a;
+
     /* ---- Escalas de espacio ---- */
     --space-xs: 4px;
     --space-sm: 8px;

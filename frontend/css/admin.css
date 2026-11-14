@@ -774,6 +774,269 @@
 .btn-aeteme-danger .material-symbols-outlined { font-size: 18px; }
 
 /* ============================================================
+   Registro de usuarios
+   (exclusivo de usuarios/registro-usuario.html)
+   ============================================================ */
+
+/* ---- Sub-ítem anidado del menú lateral ---- */
+.sidebar-link--child {
+    margin-left: 1.25rem;
+    padding-block: 0.375rem;
+    font-size: var(--font-size-label-md);
+    line-height: var(--line-height-label-md);
+}
+
+.sidebar-link--child .material-symbols-outlined { font-size: 16px; }
+
+.sidebar-link--child.is-active {
+    background: var(--color-surface-container);
+    color: var(--color-primary);
+    box-shadow: none;
+    font-weight: 600;
+}
+
+/* ---- Formulario ---- */
+.registro-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+}
+
+.form-group-aeteme {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.required-mark {
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+
+.input-feedback-helper {
+    margin: 0;
+    color: var(--color-outline);
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+}
+
+.input-feedback-error {
+    margin: 0;
+    color: var(--color-error);
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+    font-weight: 600;
+}
+
+.input-icon-end {
+    position: absolute;
+    right: 0.75rem;
+    color: var(--color-outline);
+    font-size: 18px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.form-control-aeteme[readonly] {
+    background: var(--color-surface-container-low);
+    color: var(--color-on-surface-variant);
+    cursor: default;
+}
+
+.form-control-aeteme[readonly]:focus {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.form-control-aeteme.is-invalid {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 3px rgba(186, 26, 26, 0.18);
+}
+
+/* ---- Aviso no bloqueante de dominio ---- */
+.input-feedback-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    border: 1px solid var(--color-warning-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-warning-container);
+    color: var(--color-on-warning-container);
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+}
+
+.input-feedback-warning .material-symbols-outlined {
+    flex-shrink: 0;
+    font-size: 16px;
+    line-height: 1.25;
+}
+
+/* ---- Medidor de fortaleza de la contraseña ---- */
+.password-strength {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-top: var(--space-xs);
+}
+
+.strength-meter-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    color: var(--color-on-surface-variant);
+}
+
+.strength-level { color: var(--color-outline); }
+
+.strength-bars {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-xs);
+}
+
+.strength-segment {
+    height: 4px;
+    border-radius: var(--radius-full);
+    background: var(--color-surface-container-highest);
+    transition: background 0.2s;
+}
+
+.password-strength[data-level="muy-debil"] .strength-segment:nth-child(-n+1) { background: var(--color-error); }
+.password-strength[data-level="debil"] .strength-segment:nth-child(-n+2) { background: #ea580c; }
+.password-strength[data-level="aceptable"] .strength-segment:nth-child(-n+3) { background: var(--color-warning); }
+.password-strength[data-level="fuerte"] .strength-segment { background: var(--color-tertiary-container); }
+
+.password-strength[data-level="muy-debil"] .strength-level { color: var(--color-error); }
+.password-strength[data-level="debil"] .strength-level { color: #c2410c; }
+.password-strength[data-level="aceptable"] .strength-level { color: var(--color-warning); }
+.password-strength[data-level="fuerte"] .strength-level { color: var(--color-tertiary-container); }
+
+.strength-requirements {
+    display: grid;
+    gap: 2px;
+    margin: var(--space-xs) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.requirement-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-outline);
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+}
+
+.requirement-item .material-symbols-outlined {
+    flex-shrink: 0;
+    font-size: 15px;
+}
+
+.requirement-item.is-valid { color: var(--color-tertiary-container); }
+
+/* ---- Pie del formulario ---- */
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-surface-container);
+}
+
+.form-actions .btn-aeteme-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    border: 1px solid var(--color-outline-variant);
+    text-decoration: none;
+}
+
+.form-actions .btn-aeteme-secondary .material-symbols-outlined { font-size: 18px; }
+
+.btn-submit:disabled {
+    opacity: 0.75;
+    cursor: progress;
+}
+
+.btn-submit.is-loading .material-symbols-outlined { animation: aeteme-spin 1s linear infinite; }
+
+@keyframes aeteme-spin { to { transform: rotate(360deg); } }
+
+/* ---- Estado de éxito ---- */
+.success-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xl) var(--space-lg);
+    text-align: center;
+}
+
+.success-icon {
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background: var(--color-surface-container);
+    color: var(--color-tertiary-container);
+}
+
+.success-icon .material-symbols-outlined { font-size: 40px; }
+
+.success-card .status-chip { margin-top: var(--space-xs); }
+
+.success-note {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    max-width: 34rem;
+    margin-top: var(--space-xs);
+    padding: var(--space-md);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface-container-low);
+    color: var(--color-on-surface-variant);
+    text-align: left;
+}
+
+.success-note .material-symbols-outlined {
+    flex-shrink: 0;
+    font-size: 20px;
+    color: var(--color-primary);
+}
+
+.success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+}
+
+.success-actions .btn-submit {
+    width: auto;
+    text-decoration: none;
+}
+
+.success-actions .btn-aeteme-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    border: 1px solid var(--color-outline-variant);
+}
+
+.success-actions .btn-aeteme-secondary .material-symbols-outlined { font-size: 18px; }
+
+/* ============================================================
    Adaptación a pantallas medianas y pequeñas
    ============================================================ */
 @media (min-width: 992px) {
@@ -799,6 +1062,7 @@
     .admin-header-title { display: none; }
     .admin-table { min-width: 40rem; }
     .advisory-banner { align-items: flex-start; }
+    .registro-form { padding: var(--space-md); }
     .toast-aeteme {
         right: var(--space-md);
         bottom: var(--space-md);
@@ -809,4 +1073,9 @@
 @media (max-width: 575.98px) {
     .admin-user-meta { display: none; }
     .confirm-dialog-body { padding: var(--space-md); }
+    .form-actions > *,
+    .success-actions > * {
+        flex: 1 1 100%;
+        justify-content: center;
+    }
 }

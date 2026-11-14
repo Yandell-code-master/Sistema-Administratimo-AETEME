@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Registro de nuevos administradores del Sistema Administrativo AETEME. Pantalla exclusiva del SuperAdministrador para crear cuentas con rol Administrador y contraseña provisional.">
+    <title>Registrar usuario · Sistema Administrativo AETEME</title>
+
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+
+    <a class="skip-link text-label-md" href="#contenidoPrincipal">Saltar al contenido principal</a>
+
+    <!-- ==================================================
+         Barra lateral
+         ================================================== -->
+    <aside class="admin-sidebar" id="barraLateral" aria-label="Navegación principal">
+        <div class="sidebar-scroll">
+            <div class="sidebar-brand">
+                <span class="sidebar-logo" aria-hidden="true">AE</span>
+                <span class="d-flex flex-column">
+                    <span class="text-headline-sm text-primary">AETEME</span>
+                    <span class="text-label-sm text-on-surface-variant text-uppercase">Admin Ops CR</span>
+                </span>
+            </div>
+
+            <nav class="sidebar-nav text-label-md" aria-label="Secciones del sistema">
+                <span class="sidebar-group-label text-label-sm">Principal</span>
+                <a class="sidebar-link" href="#">
+                    <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
+                    Dashboard
+                </a>
+
+                <span class="sidebar-group-label text-label-sm">
+                    <span>Seguridad &amp; Control</span>
+                    <span class="sidebar-badge">SuperAdmin</span>
+                </span>
+                <a class="sidebar-link is-active" href="gestion-usuarios.html">
+                    <span class="d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined" aria-hidden="true">manage_accounts</span>
+                        Gestión de Usuarios
+                    </span>
+                    <span class="sidebar-link-dot" aria-hidden="true"></span>
+                </a>
+                <a class="sidebar-link sidebar-link--child is-active" href="registro-usuario.html" aria-current="page">
+                    <span class="material-symbols-outlined" aria-hidden="true">person_add</span>
+                    Registrar usuario
+                </a>
+                <a class="sidebar-link sidebar-link--between" href="#">
+                    <span class="d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined" aria-hidden="true">history_edu</span>
+                        Bitácora Auditoría
+                    </span>
+                    <span class="material-symbols-outlined sidebar-lock" aria-hidden="true">lock</span>
+                </a>
+
+                <span class="sidebar-group-label text-label-sm">Gestión Contenido</span>
+                <a class="sidebar-link" href="#">
+                    <span class="material-symbols-outlined" aria-hidden="true">newspaper</span>
+                    Noticias Deportivas
+                </a>
+                <a class="sidebar-link" href="#">
+                    <span class="material-symbols-outlined" aria-hidden="true">emoji_events</span>
+                    Eventos &amp; Torneos
+                </a>
+                <a class="sidebar-link" href="#">
+                    <span class="material-symbols-outlined" aria-hidden="true">handshake</span>
+                    Patrocinadores
+                </a>
+
+                <span class="sidebar-group-label text-label-sm">Alianzas &amp; Sistemas</span>
+                <a class="sidebar-link sidebar-link--between" href="#">
+                    <span class="d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined" aria-hidden="true">groups</span>
+                        CheerSquad
+                    </span>
+                    <span class="material-symbols-outlined sidebar-lock" aria-hidden="true">open_in_new</span>
+                </a>
+                <a class="sidebar-link sidebar-link--between" href="#">
+                    <span class="d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined" aria-hidden="true">sports_score</span>
+                        TTplayBook
+                    </span>
+                    <span class="material-symbols-outlined sidebar-lock" aria-hidden="true">open_in_new</span>
+                </a>
+
+                <span class="sidebar-group-label text-label-sm">Cuenta</span>
+                <a class="sidebar-link" href="#">
+                    <span class="material-symbols-outlined" aria-hidden="true">badge</span>
+                    Mi Perfil
+                </a>
+            </nav>
+        </div>
+    </aside>
+
+    <div class="sidebar-backdrop" id="respaldoMenu" hidden></div>
+
+    <!-- ==================================================
+         Encabezado superior
+         ================================================== -->
+    <header class="admin-header">
+        <div class="admin-header-brand">
+            <button type="button" class="admin-menu-btn" id="btnMenuLateral"
+                    aria-label="Abrir menú de navegación" aria-controls="barraLateral" aria-expanded="false">
+                <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+            </button>
+            <div class="admin-header-title">
+                <span class="material-symbols-outlined" aria-hidden="true">admin_panel_settings</span>
+                Sistema Administrativo AETEME
+            </div>
+        </div>
+
+        <div class="admin-header-user">
+            <div class="admin-user-meta">
+                <span class="admin-user-name text-label-md">
+                    Licda. Carmen Solís
+                    <span class="material-symbols-outlined" aria-hidden="true">workspace_premium</span>
+                </span>
+                <span class="admin-user-role">SuperAdministrador</span>
+            </div>
+            <span class="admin-avatar" aria-hidden="true">CS</span>
+            <a class="btn-logout" href="login.html" title="Cerrar sesión" aria-label="Cerrar sesión">
+                <span class="material-symbols-outlined" aria-hidden="true">logout</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ==================================================
+         Contenido principal
+         ================================================== -->
+    <main class="admin-main" id="contenidoPrincipal">
+        <nav class="breadcrumb-aeteme text-label-sm" aria-label="Ruta de navegación">
+            <a href="#">
+                <span class="material-symbols-outlined" aria-hidden="true">home</span>
+                Consola AETEME
+            </a>
+            <span class="material-symbols-outlined breadcrumb-sep" aria-hidden="true">chevron_right</span>
+            <span>Subsistema Operativo</span>
+            <span class="material-symbols-outlined breadcrumb-sep" aria-hidden="true">chevron_right</span>
+            <a href="gestion-usuarios.html">Gestión de Usuarios</a>
+            <span class="material-symbols-outlined breadcrumb-sep" aria-hidden="true">chevron_right</span>
+            <span class="breadcrumb-current" aria-current="page">Registrar usuario</span>
+        </nav>
+
+        <div class="page-head">
+            <div class="page-head-text">
+                <h1 class="text-headline-xl text-on-surface">Registrar nuevo usuario</h1>
+            </div>
+        </div>
+
+        <!-- ==============================================
+             Tarjeta: formulario de registro / estado de éxito
+             ============================================== -->
+        <section class="panel-card" id="contenedorFormularioRegistro" aria-labelledby="tituloFormularioRegistro">
+            <h2 class="visually-hidden" id="tituloFormularioRegistro">Formulario de registro de un nuevo administrador</h2>
+
+            <form class="registro-form" id="formRegistroUsuario" novalidate autocomplete="off">
+
+                <!-- Nombre completo -->
+                <div class="form-group-aeteme">
+                    <label class="form-label-aeteme" for="inputNombreCompleto">
+                        <span>Nombre completo <span class="required-mark" aria-hidden="true">*</span></span>
+                    </label>
+                    <div class="input-field">
+                        <span class="material-symbols-outlined input-icon input-icon-start" aria-hidden="true">badge</span>
+                        <input class="form-control-aeteme" type="text" id="inputNombreCompleto" name="nombreCompleto"
+                               placeholder="Ej. Roberto Méndez Castro" autocomplete="name"
+                               required minlength="3" maxlength="80"
+                               aria-describedby="ayudaNombre errorNombre">
+                    </div>
+                    <p class="input-feedback-helper" id="ayudaNombre">Nombre legal y apellidos según registro de la asociación (3 a 80 caracteres).</p>
+                    <p class="input-feedback-error d-none" id="errorNombre" role="alert"></p>
+                </div>
+
+                <!-- Correo institucional -->
+                <div class="form-group-aeteme">
+                    <label class="form-label-aeteme" for="inputCorreo">
+                        <span>Correo institucional <span class="required-mark" aria-hidden="true">*</span></span>
+                    </label>
+                    <div class="input-field">
+                        <span class="material-symbols-outlined input-icon input-icon-start" aria-hidden="true">mail</span>
+                        <input class="form-control-aeteme" type="email" id="inputCorreo" name="correo"
+                               placeholder="usuario@aeteme.cr" autocomplete="email" required
+                               aria-describedby="ayudaCorreo advertenciaDominio errorCorreo">
+                    </div>
+                    <p class="input-feedback-helper" id="ayudaCorreo">Dirección donde recibirá el enlace de activación institucional.</p>
+                    <div class="input-feedback-warning d-none" id="advertenciaDominio">
+                        <span class="material-symbols-outlined" aria-hidden="true">info</span>
+                        <span>Nota: se sugiere utilizar el dominio federado <strong>@aeteme.cr</strong>, aunque correos externos válidos también son aceptados.</span>
+                    </div>
+                    <p class="input-feedback-error d-none" id="errorCorreo" role="alert"></p>
+                </div>
+
+                <!-- Rol asignado -->
+                <div class="form-group-aeteme">
+                    <label class="form-label-aeteme" for="inputRolVisual">
+                        <span>Rol asignado</span>
+                    </label>
+                    <div class="input-field">
+                        <span class="material-symbols-outlined input-icon input-icon-start" aria-hidden="true">verified</span>
+                        <input class="form-control-aeteme" type="text" id="inputRolVisual"
+                               value="Administrador" readonly aria-describedby="notaRol">
+                        <span class="material-symbols-outlined input-icon-end" aria-hidden="true">lock</span>
+                        <input type="hidden" name="rol" value="administrador">
+                    </div>
+                    <p class="input-feedback-helper" id="notaRol">
+                        El rol lo asigna el sistema y no puede modificarse. Las facultades de SuperAdministrador no son delegables por este medio.
+                    </p>
+                </div>
+
+                <!-- Contraseña provisional -->
+                <div class="form-group-aeteme">
+                    <label class="form-label-aeteme" for="inputPassword">
+                        <span>Contraseña provisional <span class="required-mark" aria-hidden="true">*</span></span>
+                    </label>
+                    <div class="input-field">
+                        <span class="material-symbols-outlined input-icon input-icon-start" aria-hidden="true">lock</span>
+                        <input class="form-control-aeteme" type="password" id="inputPassword" name="passwordProvisional"
+                               placeholder="Ingrese contraseña provisional" autocomplete="new-password" required
+                               aria-describedby="errorPassword medidorFortaleza">
+                        <button type="button" class="btn-toggle-password" id="btnTogglePass1"
+                                aria-label="Mostrar contraseña provisional" aria-pressed="false" title="Mostrar contraseña">
+                            <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+                        </button>
+                    </div>
+                    <p class="input-feedback-error d-none" id="errorPassword" role="alert"></p>
+
+                    <!-- Medidor de fortaleza -->
+                    <div class="password-strength" id="medidorFortaleza" data-level="none">
+                        <div class="strength-meter-head">
+                            <span class="text-label-sm">Fortaleza de contraseña</span>
+                            <span class="text-label-sm strength-level" id="labelFortalezaTexto" aria-live="polite">Sin ingresar</span>
+                        </div>
+                        <div class="strength-bars" aria-hidden="true">
+                            <div class="strength-segment"></div>
+                            <div class="strength-segment"></div>
+                            <div class="strength-segment"></div>
+                            <div class="strength-segment"></div>
+                        </div>
+                        <ul class="strength-requirements" aria-label="Requisitos de seguridad de la contraseña">
+                            <li class="requirement-item" id="reqLongitud">
+                                <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
+                                <span>Mínimo 12 caracteres</span>
+                            </li>
+                            <li class="requirement-item" id="reqMayuscula">
+                                <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
+                                <span>Una mayúscula (A-Z)</span>
+                            </li>
+                            <li class="requirement-item" id="reqMinuscula">
+                                <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
+                                <span>Una minúscula (a-z)</span>
+                            </li>
+                            <li class="requirement-item" id="reqNumero">
+                                <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
+                                <span>Un número (0-9)</span>
+                            </li>
+                            <li class="requirement-item" id="reqSimbolo">
+                                <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
+                                <span>Un símbolo especial (!@#$…)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Confirmar contraseña -->
+                <div class="form-group-aeteme">
+                    <label class="form-label-aeteme" for="inputConfirmPassword">
+                        <span>Confirmar contraseña provisional <span class="required-mark" aria-hidden="true">*</span></span>
+                    </label>
+                    <div class="input-field">
+                        <span class="material-symbols-outlined input-icon input-icon-start" aria-hidden="true">lock_reset</span>
+                        <input class="form-control-aeteme" type="password" id="inputConfirmPassword" name="confirmPassword"
+                               placeholder="Repita la contraseña provisional" autocomplete="new-password" required
+                               aria-describedby="ayudaConfirm errorConfirmPassword">
+                        <button type="button" class="btn-toggle-password" id="btnTogglePass2"
+                                aria-label="Mostrar confirmación de contraseña" aria-pressed="false" title="Mostrar contraseña">
+                            <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+                        </button>
+                    </div>
+                    <p class="input-feedback-helper" id="ayudaConfirm">Ambas contraseñas deben ser exactamente idénticas.</p>
+                    <p class="input-feedback-error d-none" id="errorConfirmPassword" role="alert"></p>
+                </div>
+
+                <!-- Acciones -->
+                <div class="form-actions">
+                    <a class="btn-aeteme-secondary text-label-md" href="gestion-usuarios.html">
+                        <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+                        <span>Volver a Gestión de Usuarios</span>
+                    </a>
+                    <button class="btn-submit" type="submit" id="btnSubmitRegistro">
+                        <span class="material-symbols-outlined" aria-hidden="true">person_add</span>
+                        <span id="btnSubmitTexto">Registrar usuario</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Estado de éxito: sustituye al formulario sin recargar -->
+            <div class="success-card d-none" id="estadoExitoRegistro" aria-live="polite">
+                <div class="success-icon" aria-hidden="true">
+                    <span class="material-symbols-outlined">mark_email_read</span>
+                </div>
+
+                <h3 class="text-headline-lg text-on-surface">Cuenta creada correctamente</h3>
+
+                <p class="text-body-md mb-0">
+                    La cuenta de <strong class="text-on-surface" id="exitoNombreUsuario"></strong> quedó en estado:
+                </p>
+
+                <span class="status-chip status-chip--pending text-label-sm">
+                    <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+                    Pendiente de verificación
+                </span>
+
+                <p class="text-body-sm text-on-surface-variant mb-0">
+                    Enviamos el enlace de activación a <strong class="text-primary" id="exitoCorreoUsuario"></strong>.
+                </p>
+
+                <div class="success-note text-body-sm">
+                    <span class="material-symbols-outlined" aria-hidden="true">info</span>
+                    <span>
+                        El enlace expira en 24 horas y solo puede usarse una vez. El nuevo usuario no podrá
+                        iniciar sesión en la plataforma administrativa hasta verificarlo y cambiar su clave provisional.
+                    </span>
+                </div>
+
+                <div class="success-actions">
+                    <a class="btn-submit" href="gestion-usuarios.html">
+                        <span class="material-symbols-outlined" aria-hidden="true">group</span>
+                        <span>Volver a Gestión de Usuarios</span>
+                    </a>
+                    <button class="btn-aeteme-secondary text-label-md" type="button" id="btnRegistrarOtro">
+                        <span class="material-symbols-outlined" aria-hidden="true">add_circle</span>
+                        <span>Registrar otro usuario</span>
+                    </button>
+                    <button class="btn-aeteme-secondary text-label-md" type="button" id="btnReenviarEnlace">
+                        <span class="material-symbols-outlined" aria-hidden="true">forward_to_inbox</span>
+                        <span>Reenviar enlace</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Aviso de operación completada -->
+    <div class="toast-aeteme text-label-md" id="toastRegistro" role="status" aria-live="polite">
+        <span class="material-symbols-outlined" id="toastIcono" aria-hidden="true">check_circle</span>
+        <span id="toastMensaje">Notificación del sistema</span>
+    </div>
+
+    <script src="js/registro-usuario.js"></script>
+</body>
+</html>
