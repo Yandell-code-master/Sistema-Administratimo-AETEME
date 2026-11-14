@@ -194,7 +194,7 @@
 
 .form-control-aeteme:focus {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.25);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 25%, transparent);
 }
 
 .input-badge {
@@ -318,6 +318,30 @@
 
 .footer-sep { color: var(--color-outline-variant); }
 .footer-plain { color: var(--color-outline); font-size: var(--font-size-label-sm); font-weight: var(--font-weight-label-sm); }
+
+/* ---- Toggle de tema claro/oscuro ---- */
+.theme-toggle {
+    position: fixed;
+    top: var(--space-md);
+    right: var(--space-md);
+    z-index: 1050;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-full);
+    background: var(--color-surface-container-lowest);
+    color: var(--color-on-surface-variant);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.theme-toggle:hover { color: var(--color-primary); border-color: var(--color-primary); }
+.theme-toggle:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.theme-toggle .material-symbols-outlined { font-size: 22px; line-height: 1; }
 
 /* ---- Foco visible para inputs ---- */
 .form-control-aeteme:focus-visible,

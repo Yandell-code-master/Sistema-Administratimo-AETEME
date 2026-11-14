@@ -1,49 +1,74 @@
 /* ============================================================
    AETEME · Variables de diseño (tokens del sistema administrativo)
-   Fuente de verdad: tokens del diseño AETEME (Stitch)
+   Paleta y fuentes: tema claro/oscuro (oklch)
+
+   Estructura:
+   1. Tokens base (tema claro / .dark)
+   2. Alias heredados (--color-*) que consume el CSS existente;
+      cada uno referencia un token base, así ambos temas funcionan.
    ============================================================ */
 
+/* ---- 1. Tokens base ---- */
 :root {
-    /* ---- Colores base (Material You) ---- */
-    --color-primary: #00355f;
-    --color-primary-container: #0f4c81;
-    --color-on-primary: #ffffff;
-    --color-on-primary-container: #8ebdf9;
+    color-scheme: light;
 
-    --color-secondary: #bb0112;
-    --color-secondary-container: #e02928;
-    --color-secondary-fixed: #ffdad6;
+    /* Tema claro */
+    --background: oklch(1.0000 0 0);
+    --foreground: oklch(0.2077 0.0398 265.7549);
+    --card: oklch(0.9842 0.0034 247.8575);
+    --card-foreground: oklch(0.2077 0.0398 265.7549);
+    --popover: oklch(1.0000 0 0);
+    --popover-foreground: oklch(0.2077 0.0398 265.7549);
+    --primary: oklch(0.5771 0.2152 27.3250);
+    --primary-foreground: oklch(1.0000 0 0);
+    --secondary: oklch(0.5461 0.2152 262.8809);
+    --secondary-foreground: oklch(1.0000 0 0);
+    --muted: oklch(0.9683 0.0069 247.8956);
+    --muted-foreground: oklch(0.5544 0.0407 257.4166);
+    --accent: oklch(0.9243 0.1151 95.7459);
+    --accent-foreground: oklch(0.4732 0.1247 46.2007);
+    --destructive: oklch(0.6368 0.2078 25.3313);
+    --destructive-foreground: oklch(0.9842 0.0034 247.8575);
+    --border: oklch(0.9288 0.0126 255.5078);
+    --input: oklch(0.9288 0.0126 255.5078);
+    --ring: oklch(0.5771 0.2152 27.3250);
+    --chart-1: oklch(0.5771 0.2152 27.3250);
+    --chart-2: oklch(0.5461 0.2152 262.8809);
+    --chart-3: oklch(0.6959 0.1491 162.4796);
+    --chart-4: oklch(0.7686 0.1647 70.0804);
+    --chart-5: oklch(0.5854 0.2041 277.1173);
+    --sidebar: oklch(0.2795 0.0368 260.0310);
+    --sidebar-foreground: oklch(0.9842 0.0034 247.8575);
+    --sidebar-primary: oklch(0.5771 0.2152 27.3250);
+    --sidebar-primary-foreground: oklch(1.0000 0 0);
+    --sidebar-accent: oklch(0.3717 0.0392 257.2870);
+    --sidebar-accent-foreground: oklch(0.9842 0.0034 247.8575);
+    --sidebar-border: oklch(0.3717 0.0392 257.2870);
+    --sidebar-ring: oklch(0.5771 0.2152 27.3250);
 
-    --color-tertiary: #003c27;
-    --color-tertiary-container: #005539;
-    --color-on-tertiary-container: #3dd197;
-    --color-tertiary-fixed-dim: #4edea3;
+    /* ---- Tipografía ---- */
+    --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-serif: Georgia, serif;
+    --font-mono: 'JetBrains Mono', monospace;
 
-    --color-background: #f8f9ff;
-    --color-surface: #f8f9ff;
-    --color-surface-container-lowest: #ffffff;
-    --color-surface-container-low: #eff4ff;
-    --color-surface-container: #e5eeff;
-    --color-surface-container-high: #dce9ff;
-    --color-surface-container-highest: #d3e4fe;
+    --tracking-normal: -0.02em;
 
-    --color-on-surface: #0b1c30;
-    --color-on-surface-variant: #42474f;
-    --color-on-background: #0b1c30;
-    --color-inverse-surface: #213145;
+    /* ---- Radios ---- */
+    --radius: 0.5rem;
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --radius-full: 9999px;
 
-    --color-outline: #727780;
-    --color-outline-variant: #c2c7d1;
-
-    --color-error: #ba1a1a;
-    --color-error-container: #ffdad6;
-    --color-on-error: #ffffff;
-    --color-on-error-container: #93000a;
-
-    --color-warning: #ca8a04;
-    --color-warning-container: #fefce8;
-    --color-on-warning-container: #92400e;
-    --color-warning-border: #fde68a;
+    /* ---- Sombras ---- */
+    --shadow-2xs: 0px 4px 10px 0px hsl(0 0% 0% / 0.05);
+    --shadow-xs: 0px 4px 10px 0px hsl(0 0% 0% / 0.05);
+    --shadow-sm: 0px 4px 10px 0px hsl(0 0% 0% / 0.10), 0px 1px 2px -1px hsl(0 0% 0% / 0.10);
+    --shadow: 0px 4px 10px 0px hsl(0 0% 0% / 0.10), 0px 1px 2px -1px hsl(0 0% 0% / 0.10);
+    --shadow-md: 0px 4px 10px 0px hsl(0 0% 0% / 0.10), 0px 2px 4px -1px hsl(0 0% 0% / 0.10);
+    --shadow-lg: 0px 4px 10px 0px hsl(0 0% 0% / 0.10), 0px 4px 6px -1px hsl(0 0% 0% / 0.10);
+    --shadow-xl: 0px 4px 10px 0px hsl(0 0% 0% / 0.10), 0px 8px 10px -1px hsl(0 0% 0% / 0.10);
+    --shadow-2xl: 0px 4px 10px 0px hsl(0 0% 0% / 0.25);
 
     /* ---- Escalas de espacio ---- */
     --space-xs: 4px;
@@ -52,21 +77,11 @@
     --space-lg: 24px;
     --space-xl: 40px;
 
-    /* ---- Radios ---- */
-    --radius-sm: 0.25rem;
-    --radius-lg: 0.5rem;
-    --radius-xl: 0.75rem;
-    --radius-full: 9999px;
+    /* ---- Layout general ---- */
+    --sidebar-width: 288px;
+    --header-height: 64px;
 
-    /* ---- Sombras ---- */
-    --shadow-soft: 0 1px 8px rgba(0, 0, 0, 0.04);
-    --shadow-card: 0 4px 6px -1px rgba(15, 76, 129, 0.08);
-    --shadow-sm: 0 1px 2px rgba(15, 76, 129, 0.06);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-
-    /* ---- Tipografía: Plus Jakarta Sans ---- */
-    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-
+    /* ---- Tipografía: escala (heredada, sin cambios) ---- */
     --font-size-headline-xl: 32px;
     --line-height-headline-xl: 40px;
     --font-weight-headline-xl: 800;
@@ -106,8 +121,115 @@
     --font-size-label-sm: 11px;
     --line-height-label-sm: 14px;
     --font-weight-label-sm: 700;
+}
 
-    /* ---- Layout general ---- */
-    --sidebar-width: 288px;
-    --header-height: 64px;
+.dark {
+    color-scheme: dark;
+
+    --background: oklch(0.1288 0.0406 264.6952);
+    --foreground: oklch(0.9842 0.0034 247.8575);
+    --card: oklch(0.2795 0.0368 260.0310);
+    --card-foreground: oklch(0.9842 0.0034 247.8575);
+    --popover: oklch(0.1288 0.0406 264.6952);
+    --popover-foreground: oklch(0.9842 0.0034 247.8575);
+    --primary: oklch(0.6368 0.2078 25.3313);
+    --primary-foreground: oklch(1.0000 0 0);
+    --secondary: oklch(0.6231 0.1880 259.8145);
+    --secondary-foreground: oklch(1.0000 0 0);
+    --muted: oklch(0.2795 0.0368 260.0310);
+    --muted-foreground: oklch(0.7107 0.0351 256.7878);
+    --accent: oklch(0.8369 0.1644 84.4286);
+    --accent-foreground: oklch(0.2077 0.0398 265.7549);
+    --destructive: oklch(0.3958 0.1331 25.7230);
+    --destructive-foreground: oklch(0.9842 0.0034 247.8575);
+    --border: oklch(0.3717 0.0392 257.2870);
+    --input: oklch(0.3717 0.0392 257.2870);
+    --ring: oklch(0.6368 0.2078 25.3313);
+    --chart-1: oklch(0.6368 0.2078 25.3313);
+    --chart-2: oklch(0.6231 0.1880 259.8145);
+    --chart-3: oklch(0.7227 0.1920 149.5793);
+    --chart-4: oklch(0.7952 0.1617 86.0468);
+    --chart-5: oklch(0.6056 0.2189 292.7172);
+    --sidebar: oklch(0.2077 0.0398 265.7549);
+    --sidebar-foreground: oklch(0.9842 0.0034 247.8575);
+    --sidebar-primary: oklch(0.6368 0.2078 25.3313);
+    --sidebar-primary-foreground: oklch(1.0000 0 0);
+    --sidebar-accent: oklch(0.2795 0.0368 260.0310);
+    --sidebar-accent-foreground: oklch(0.9842 0.0034 247.8575);
+    --sidebar-border: oklch(0.3717 0.0392 257.2870);
+    --sidebar-ring: oklch(0.6368 0.2078 25.3313);
+
+    --shadow-2xs: 0px 8px 15px 0px hsl(0 0% 0% / 0.25);
+    --shadow-xs: 0px 8px 15px 0px hsl(0 0% 0% / 0.25);
+    --shadow-sm: 0px 8px 15px 0px hsl(0 0% 0% / 0.50), 0px 1px 2px -1px hsl(0 0% 0% / 0.50);
+    --shadow: 0px 8px 15px 0px hsl(0 0% 0% / 0.50), 0px 1px 2px -1px hsl(0 0% 0% / 0.50);
+    --shadow-md: 0px 8px 15px 0px hsl(0 0% 0% / 0.50), 0px 2px 4px -1px hsl(0 0% 0% / 0.50);
+    --shadow-lg: 0px 8px 15px 0px hsl(0 0% 0% / 0.50), 0px 4px 6px -1px hsl(0 0% 0% / 0.50);
+    --shadow-xl: 0px 8px 15px 0px hsl(0 0% 0% / 0.50), 0px 8px 10px -1px hsl(0 0% 0% / 0.50);
+    --shadow-2xl: 0px 8px 15px 0px hsl(0 0% 0% / 1.25);
+}
+
+/* ---- 2. Alias heredados (--color-*) ----
+   Referencian los tokens base, así que ambos temas funcionan sin
+   duplicar reglas. Se mantienen mientras el CSS existente los use. */
+:root,
+.dark {
+    /* Primario */
+    --color-primary: var(--primary);
+    --color-primary-container: color-mix(in oklch, var(--primary) 82%, black);
+    --color-on-primary: var(--primary-foreground);
+    --color-on-primary-container: var(--primary-foreground);
+
+    /* Secundario */
+    --color-secondary: var(--secondary);
+    --color-secondary-container: color-mix(in oklch, var(--secondary) 82%, black);
+    --color-secondary-fixed: color-mix(in oklch, var(--secondary) 14%, var(--background));
+
+    /* Terciario (éxito/institucional → chart-3) */
+    --color-tertiary: var(--chart-3);
+    --color-tertiary-container: color-mix(in oklch, var(--chart-3) 45%, black);
+    --color-on-tertiary-container: color-mix(in oklch, var(--chart-3) 40%, white);
+    --color-tertiary-fixed-dim: var(--chart-3);
+
+    /* Superficies */
+    --color-background: var(--background);
+    --color-surface: var(--background);
+    --color-surface-container-lowest: var(--card);
+    --color-surface-container-low: var(--muted);
+    --color-surface-container: color-mix(in oklch, var(--muted) 70%, var(--border));
+    --color-surface-container-high: color-mix(in oklch, var(--border) 80%, var(--muted-foreground));
+    --color-surface-container-highest: color-mix(in oklch, var(--border) 55%, var(--muted-foreground));
+
+    --color-on-surface: var(--foreground);
+    --color-on-surface-variant: var(--muted-foreground);
+    --color-on-background: var(--foreground);
+    --color-inverse-surface: var(--foreground);
+
+    --color-outline: var(--muted-foreground);
+    --color-outline-variant: var(--border);
+
+    /* Error → destructive */
+    --color-error: var(--destructive);
+    --color-error-container: color-mix(in oklch, var(--destructive) 15%, var(--background));
+    --color-on-error: var(--destructive-foreground);
+    --color-on-error-container: color-mix(in oklch, var(--destructive) 70%, black);
+
+    /* Advertencia → chart-4 / accent */
+    --color-warning: var(--chart-4);
+    --color-warning-container: color-mix(in oklch, var(--chart-4) 18%, var(--background));
+    --color-on-warning-container: var(--accent-foreground);
+    --color-warning-border: color-mix(in oklch, var(--chart-4) 45%, var(--background));
+
+    /* Sombras con nombres heredados */
+    --shadow-soft: var(--shadow-xs);
+    --shadow-card: var(--shadow);
+}
+
+/* Ajuste fino del texto sobre el contenedor de error en modo oscuro */
+.dark {
+    --color-on-error-container: color-mix(in oklch, var(--destructive) 35%, white);
+}
+
+body {
+    letter-spacing: var(--tracking-normal);
 }
