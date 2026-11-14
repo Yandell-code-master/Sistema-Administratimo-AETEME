@@ -1,0 +1,398 @@
+/* ============================================================
+   AETEME · Componentes compartidos (pantallas administrativas)
+   ============================================================ */
+
+/* ---- Utilidades tipográficas ---- */
+.text-headline-xl { font-size: var(--font-size-headline-xl); line-height: var(--line-height-headline-xl); font-weight: var(--font-weight-headline-xl); }
+.text-headline-lg { font-size: var(--font-size-headline-lg); line-height: var(--line-height-headline-lg); font-weight: var(--font-weight-headline-lg); }
+.text-headline-md { font-size: var(--font-size-headline-md); line-height: var(--line-height-headline-md); font-weight: var(--font-weight-headline-md); letter-spacing: -0.01em; }
+.text-headline-sm { font-size: var(--font-size-headline-sm); line-height: var(--line-height-headline-sm); font-weight: var(--font-weight-headline-sm); }
+.text-body-lg { font-size: var(--font-size-body-lg); line-height: var(--line-height-body-lg); font-weight: var(--font-weight-body-lg); }
+.text-body-md { font-size: var(--font-size-body-md); line-height: var(--line-height-body-md); font-weight: var(--font-weight-body-md); }
+.text-body-sm { font-size: var(--font-size-body-sm); line-height: var(--line-height-body-sm); font-weight: var(--font-weight-body-sm); }
+.text-label-lg { font-size: var(--font-size-label-lg); line-height: var(--line-height-label-lg); font-weight: var(--font-weight-label-lg); }
+.text-label-md { font-size: var(--font-size-label-md); line-height: var(--line-height-label-md); font-weight: var(--font-weight-label-md); }
+.text-label-sm { font-size: var(--font-size-label-sm); line-height: var(--line-height-label-sm); font-weight: var(--font-weight-label-sm); }
+
+.text-on-surface { color: var(--color-on-surface); }
+.text-on-surface-variant { color: var(--color-on-surface-variant); }
+.text-outline { color: var(--color-outline); }
+
+/* ---- Tarjeta/pantalla de autenticación (centrada) ---- */
+.auth-body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: var(--space-md);
+    background: var(--color-background);
+    font-family: var(--font-sans);
+    color: var(--color-on-surface);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 32rem; /* 512px, card max-w-lg del diseño */
+    min-width: 0;
+    margin-inline: auto;
+    background: var(--color-surface-container-lowest);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-lg);
+}
+
+.logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 6.5rem;
+    height: 3.5rem; /* h-14 del diseño */
+    padding: 0 var(--space-md);
+    border-radius: var(--radius-xl);
+    background: linear-gradient(145deg, var(--color-primary), var(--color-primary-container));
+    color: var(--color-on-primary);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    box-shadow: var(--shadow-sm);
+    user-select: none;
+}
+
+/* ---- Badge "Sistema Administrativo Oficial" ---- */
+.badge-system {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem; /* 6px */
+    padding: 0.125rem var(--space-sm);
+    border-radius: var(--radius-full);
+    background: var(--color-surface-container);
+    color: var(--color-primary);
+    font-size: var(--font-size-label-sm);
+    line-height: var(--line-height-label-sm);
+    font-weight: var(--font-weight-label-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.badge-system .dot {
+    width: 0.5rem; /* 8px */
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--color-secondary);
+    flex-shrink: 0;
+}
+
+/* ---- Alerta dinámica ---- */
+.alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+    margin-bottom: var(--space-md);
+    transition: opacity 0.25s ease;
+}
+
+.alert-icon {
+    font-size: 22px;
+    line-height: 1;
+    margin-top: 1px;
+    flex-shrink: 0;
+}
+
+.alert-title {
+    font-size: var(--font-size-label-md);
+    line-height: var(--line-height-label-md);
+    font-weight: 700;
+    margin: 0 0 var(--space-xs);
+}
+
+.alert-message {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.alert-close {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    padding: 2px;
+    opacity: 0.75;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+    display: inline-flex;
+}
+
+.alert-close:hover { opacity: 1; }
+.alert-close .material-symbols-outlined { font-size: 18px; }
+
+.alert-error { background: var(--color-error-container); color: var(--color-on-error-container); }
+.alert-error .alert-icon { color: var(--color-error); }
+
+.alert-neutral { background: var(--color-surface-container-high); color: var(--color-on-surface); }
+.alert-neutral .alert-icon { color: var(--color-secondary); }
+
+.alert-primary { background: var(--color-surface-container); color: var(--color-on-surface); }
+.alert-primary .alert-icon { color: var(--color-primary); }
+
+.alert-success { background: var(--color-surface-container-high); color: var(--color-on-surface); }
+.alert-success .alert-icon { color: var(--color-tertiary-fixed-dim); }
+
+/* ---- Formulario con iconos laterales ---- */
+.form-label-aeteme {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--font-size-label-md);
+    line-height: var(--line-height-label-md);
+    font-weight: var(--font-weight-label-md);
+    color: var(--color-on-surface);
+    margin-bottom: 0.25rem;
+}
+
+.input-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    font-size: 20px;
+    color: var(--color-outline);
+    line-height: 1;
+    user-select: none;
+}
+
+.input-icon-start {
+    position: absolute;
+    left: 0.75rem; /* left-3 */
+    pointer-events: none;
+}
+
+.form-control-aeteme {
+    width: 100%;
+    height: 2.5rem; /* h-10 */
+    padding: 0 1rem 0 2.75rem; /* pl-11 con icono */
+    padding-right: 2.75rem; /* espacio para el icono derecho */
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-container-lowest);
+    box-shadow: var(--shadow-sm);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-body-md);
+    line-height: var(--line-height-body-md);
+    color: var(--color-on-surface);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.form-control-aeteme::placeholder { color: var(--color-outline); }
+
+.form-control-aeteme:hover { border-color: var(--color-outline-variant); }
+
+.form-control-aeteme:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.25);
+}
+
+.input-badge {
+    position: absolute;
+    right: 0.625rem;
+    font-size: 18px;
+    color: var(--color-tertiary-fixed-dim);
+    line-height: 1;
+    pointer-events: none;
+}
+
+.btn-toggle-password {
+    position: absolute;
+    right: 0.375rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.375rem;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: transparent;
+    color: var(--color-outline);
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+}
+
+.btn-toggle-password:hover { color: var(--color-on-surface); background: var(--color-surface-container-low); }
+.btn-toggle-password .material-symbols-outlined { font-size: 20px; line-height: 1; }
+
+.link-primary {
+    border: 0;
+    background: transparent;
+    color: var(--color-primary);
+    font-size: var(--font-size-label-sm);
+    line-height: var(--line-height-label-sm);
+    font-weight: var(--font-weight-label-sm);
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.link-primary:hover { color: var(--color-primary-container); }
+
+/* ---- Verificación anti-bot (simula reCAPTCHA v2) ---- */
+.captcha-box {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.captcha-checkbox {
+    width: 1.25rem;
+    height: 1.25rem;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.captcha-label {
+    font-size: var(--font-size-body-md);
+    color: var(--color-on-surface);
+    cursor: pointer;
+}
+
+.captcha-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.captcha-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: var(--color-outline);
+    line-height: 1;
+    padding-left: var(--space-sm);
+    border-left: 1px solid var(--color-outline-variant);
+}
+
+.captcha-brand .material-symbols-outlined { font-size: 26px; }
+.captcha-brand small { font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; }
+
+.captcha-spinner {
+    width: 1.125rem;
+    height: 1.125rem;
+    border: 2px solid var(--color-outline-variant);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: captcha-spin 0.7s linear infinite;
+}
+
+@keyframes captcha-spin { to { transform: rotate(360deg); } }
+
+.captcha-check { font-size: 22px; color: var(--color-tertiary-fixed-dim); line-height: 1; }
+
+.captcha-status {
+    margin: var(--space-xs) 0 0;
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+    color: var(--color-outline);
+    min-height: var(--line-height-body-sm);
+}
+
+.captcha-status.is-valid { color: var(--color-primary); font-weight: 600; }
+
+/* ---- Botón primario con acento rojo lateral ---- */
+.btn-submit {
+    position: relative;
+    width: 100%;
+    height: 2.75rem; /* h-11 */
+    padding: 0 var(--space-lg);
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-headline-sm);
+    line-height: var(--line-height-headline-sm);
+    font-weight: var(--font-weight-headline-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    overflow: hidden;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-submit::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0.375rem; /* w-1.5 */
+    background: var(--color-secondary);
+    transition: width 0.2s;
+}
+
+.btn-submit:hover { background: var(--color-primary-container); }
+.btn-submit:hover::before { width: 0.625rem; } /* w-2.5 */
+.btn-submit:active { transform: scale(0.99); }
+.btn-submit:focus-visible { outline: 3px solid var(--color-tertiary-fixed-dim); outline-offset: 2px; }
+
+.btn-submit .material-symbols-outlined { font-size: 20px; }
+.btn-submit .btn-submit-arrow { font-size: 18px; opacity: 0.75; transition: transform 0.2s; }
+.btn-submit:hover .btn-submit-arrow { transform: translateX(4px); }
+
+/* ---- Nota de política de acceso ---- */
+.policy-note {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    margin-top: var(--space-md);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-container);
+    color: var(--color-on-surface-variant);
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+}
+
+.policy-note .material-symbols-outlined { font-size: 20px; color: var(--color-primary); flex-shrink: 0; }
+.policy-note p { margin: 0; min-width: 0; }
+
+/* ---- Footer institucional ---- */
+.footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--color-on-surface-variant);
+    text-decoration: none;
+    font-size: var(--font-size-label-sm);
+    line-height: var(--line-height-label-sm);
+    font-weight: var(--font-weight-label-sm);
+    transition: color 0.2s;
+}
+
+.footer-link:hover { color: var(--color-primary); }
+.footer-link .material-symbols-outlined { font-size: 16px; }
+
+.footer-sep { color: var(--color-outline-variant); }
+.footer-plain { color: var(--color-outline); font-size: var(--font-size-label-sm); font-weight: var(--font-weight-label-sm); }
+
+/* ---- Foco visible para inputs ---- */
+.form-control-aeteme:focus-visible,
+.btn-toggle-password:focus-visible,
+.link-primary:focus-visible,
+.captcha-checkbox:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+}

@@ -12,3 +12,7 @@ Properties/
 **/*.md
 **/*.docx
 
+./opencode.jsonc
+
+# Skills de OpenCode compartidas por el equipo
+.opencode/skills/**/*.md
