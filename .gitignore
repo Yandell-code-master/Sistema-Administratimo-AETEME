@@ -3,6 +3,12 @@ bin/
 obj/
 Properties/
 
+# Frontend (Vite / Node)
+node_modules/
+dist/
+*.local
+.vite/
+
 # Visual Studio files
 .vs/
 *.user
