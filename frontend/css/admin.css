@@ -573,6 +573,27 @@
 
 .status-chip--pending .material-symbols-outlined { font-size: 14px; }
 
+.status-chip--baja {
+    background: var(--color-error-container);
+    color: var(--color-on-error-container);
+}
+
+.status-chip--baja .material-symbols-outlined { font-size: 14px; }
+
+/* Eliminación lógica: el registro permanece visible pero grisado y sin acciones. */
+.user-row--inactive {
+    opacity: 0.55;
+}
+
+.user-row--inactive .user-avatar {
+    filter: grayscale(1);
+}
+
+.user-row--inactive .js-baja {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
 /* ---- Acciones de fila ---- */
 .btn-icon-danger {
     display: inline-flex;

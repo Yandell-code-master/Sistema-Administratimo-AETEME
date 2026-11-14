@@ -75,7 +75,26 @@ function confirmarBaja() {
 
     const nombre = filaObjetivo.dataset.nombre || 'la cuenta';
 
-    filaObjetivo.remove();
+    // Eliminación lógica: la fila permanece visible, queda marcada como dada de baja
+    // y se deshabilita la acción, pero nunca se borra la información de la tabla.
+    const celdaEstado = filaObjetivo.querySelector('.status-cell');
+    if (celdaEstado) {
+        celdaEstado.innerHTML =
+            '<span class="status-chip status-chip--baja text-label-sm">' +
+            '<span class="material-symbols-outlined" aria-hidden="true">person_off</span>' +
+            'Dado de baja' +
+            '</span>';
+    }
+
+    const botonBaja = filaObjetivo.querySelector('.js-baja');
+    if (botonBaja) {
+        botonBaja.disabled = true;
+        botonBaja.setAttribute('aria-disabled', 'true');
+        botonBaja.classList.add('is-disabled');
+        botonBaja.title = 'Cuenta ya dada de baja';
+    }
+
+    filaObjetivo.classList.add('user-row--inactive');
     filaObjetivo = null;
 
     modalConfirmarBaja.close();

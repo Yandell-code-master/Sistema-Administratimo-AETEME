@@ -238,75 +238,6 @@
 
 .link-primary:hover { color: var(--color-primary-container); }
 
-/* ---- Verificación anti-bot (simula reCAPTCHA v2) ---- */
-.captcha-box {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-sm) var(--space-md);
-    background: var(--color-surface-container-lowest);
-    border: 1px solid var(--color-outline-variant);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-}
-
-.captcha-checkbox {
-    width: 1.25rem;
-    height: 1.25rem;
-    accent-color: var(--color-primary);
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.captcha-label {
-    font-size: var(--font-size-body-md);
-    color: var(--color-on-surface);
-    cursor: pointer;
-}
-
-.captcha-right {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-}
-
-.captcha-brand {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    color: var(--color-outline);
-    line-height: 1;
-    padding-left: var(--space-sm);
-    border-left: 1px solid var(--color-outline-variant);
-}
-
-.captcha-brand .material-symbols-outlined { font-size: 26px; }
-.captcha-brand small { font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; }
-
-.captcha-spinner {
-    width: 1.125rem;
-    height: 1.125rem;
-    border: 2px solid var(--color-outline-variant);
-    border-top-color: var(--color-primary);
-    border-radius: 50%;
-    animation: captcha-spin 0.7s linear infinite;
-}
-
-@keyframes captcha-spin { to { transform: rotate(360deg); } }
-
-.captcha-check { font-size: 22px; color: var(--color-tertiary-fixed-dim); line-height: 1; }
-
-.captcha-status {
-    margin: var(--space-xs) 0 0;
-    font-size: var(--font-size-body-sm);
-    line-height: var(--line-height-body-sm);
-    color: var(--color-outline);
-    min-height: var(--line-height-body-sm);
-}
-
-.captcha-status.is-valid { color: var(--color-primary); font-weight: 600; }
 
 /* ---- Botón primario con acento rojo lateral ---- */
 .btn-submit {
@@ -391,8 +322,7 @@
 /* ---- Foco visible para inputs ---- */
 .form-control-aeteme:focus-visible,
 .btn-toggle-password:focus-visible,
-.link-primary:focus-visible,
-.captcha-checkbox:focus-visible {
+.link-primary:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 1px;
 }

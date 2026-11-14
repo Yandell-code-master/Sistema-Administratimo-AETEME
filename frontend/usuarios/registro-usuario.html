@@ -191,13 +191,9 @@
                         <span class="material-symbols-outlined input-icon input-icon-start" aria-hidden="true">mail</span>
                         <input class="form-control-aeteme" type="email" id="inputCorreo" name="correo"
                                placeholder="usuario@aeteme.cr" autocomplete="email" required
-                               aria-describedby="ayudaCorreo advertenciaDominio errorCorreo">
+                               aria-describedby="ayudaCorreo errorCorreo">
                     </div>
-                    <p class="input-feedback-helper" id="ayudaCorreo">Dirección donde recibirá el enlace de activación institucional.</p>
-                    <div class="input-feedback-warning d-none" id="advertenciaDominio">
-                        <span class="material-symbols-outlined" aria-hidden="true">info</span>
-                        <span>Nota: se sugiere utilizar el dominio federado <strong>@aeteme.cr</strong>, aunque correos externos válidos también son aceptados.</span>
-                    </div>
+                    <p class="input-feedback-helper" id="ayudaCorreo">Dirección donde recibirá el enlace de verificación de la cuenta.</p>
                     <p class="input-feedback-error d-none" id="errorCorreo" role="alert"></p>
                 </div>
 
@@ -250,15 +246,11 @@
                         <ul class="strength-requirements" aria-label="Requisitos de seguridad de la contraseña">
                             <li class="requirement-item" id="reqLongitud">
                                 <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
-                                <span>Mínimo 12 caracteres</span>
+                                <span>Mínimo 8 caracteres</span>
                             </li>
                             <li class="requirement-item" id="reqMayuscula">
                                 <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
                                 <span>Una mayúscula (A-Z)</span>
-                            </li>
-                            <li class="requirement-item" id="reqMinuscula">
-                                <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
-                                <span>Una minúscula (a-z)</span>
                             </li>
                             <li class="requirement-item" id="reqNumero">
                                 <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
@@ -357,6 +349,7 @@
         <span id="toastMensaje">Notificación del sistema</span>
     </div>
 
+    <script src="js/password-policy.js"></script>
     <script src="js/registro-usuario.js"></script>
 </body>
 </html>
