@@ -1,0 +1,8 @@
+dist
+node_modules
+package-lock.json
+# Los estilos actuales se migran sin reformatear.
+css
+assets
+# Pantallas HTML/JS antiguas: se eliminan en las fases 1-3, no se reformatean.
+usuarios

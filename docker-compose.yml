@@ -3,18 +3,22 @@ services:
     build: ./frontend
     ports:
       - "8000:8000"
-    # El servidor estático sirve directamente esta carpeta:
-    # los cambios en html/css/js se ven al refrescar el navegador.
+    environment:
+      # Vite reenvía /api al backend: para el navegador todo es el mismo origen.
+      API_PROXY_TARGET: http://backend:8080
+      # En Docker Desktop para Windows el watcher nativo a veces no detecta
+      # cambios sobre bind mounts; con esto el hot reload es confiable.
+      VITE_USE_POLLING: "true"
     volumes:
       - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
 
   backend:
     build: ./backend
     ports:
       - "8080:8080"
-    # Montamos el código para que dotnet watch recompile al guardar.
-    # Los volúmenes anónimos de obj/bin evitan mezclar artefactos del host (Windows)
-    # con los generados dentro del contenedor (Linux).
     volumes:
       - ./backend:/app
       - /app/API/API/obj
