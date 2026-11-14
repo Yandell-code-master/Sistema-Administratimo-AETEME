@@ -1,7 +1,8 @@
 /* ============================================================
    AETEME · Iniciar Sesión (exclusivo de usuarios/login.html)
-   Simulación del flujo: validación anti-bot + credenciales.
+   Validación de política de contraseñas + simulación del flujo.
    No hay conexión a la API todavía; el envío es demostrativo.
+   La política de contraseñas vive en js/password-policy.js.
    ============================================================ */
 
 const alertBox = document.getElementById('dynamicAlert');
@@ -11,27 +12,19 @@ const alertMessage = document.getElementById('dynamicAlertMessage');
 const alertClose = document.getElementById('dynamicAlertClose');
 
 const emailInput = document.getElementById('adminEmail');
-const emailBadge = document.getElementById('emailValidBadge');
 const passwordInput = document.getElementById('adminPassword');
 const togglePasswordBtn = document.getElementById('togglePasswordBtn');
 const eyeIcon = document.getElementById('eyeIcon');
 const recoveryBtn = document.getElementById('recoveryBtn');
 
-const captchaCheckbox = document.getElementById('captchaCheckbox');
-const captchaSpinner = document.getElementById('captchaSpinner');
-const captchaCheckIcon = document.getElementById('captchaCheckIcon');
-const captchaStatusText = document.getElementById('captchaStatusText');
-
 const loginForm = document.getElementById('loginForm');
-
-let isCaptchaVerified = false;
 
 const ALERTS = {
     invalid: {
         variant: 'alert-error',
         icon: 'error',
         title: 'Fallo de Autenticación',
-        message: 'Credenciales inválidas o verificación anti-bot sin completar. Verifique su usuario @aeteme.cr y vuelva a intentar.'
+        message: 'El correo o la contraseña no son correctos. Verifique y vuelva a intentar.'
     },
     timeout: {
         variant: 'alert-neutral',
@@ -44,6 +37,12 @@ const ALERTS = {
         icon: 'contact_support',
         title: 'Restablecimiento de Credenciales',
         message: 'Para reiniciar su clave deportiva institucional, comuníquese con el SuperAdministrador o escriba a soporte@aeteme.cr desde su cuenta registrada.'
+    },
+    weakPassword: {
+        variant: 'alert-error',
+        icon: 'lock',
+        title: 'Contraseña débil',
+        message: 'La contraseña debe tener al menos 8 caracteres e incluir una mayúscula, un número y un símbolo.'
     },
     success: {
         variant: 'alert-success',
@@ -78,56 +77,28 @@ function togglePasswordVisibility() {
     togglePasswordBtn.setAttribute('title', isPassword ? 'Ocultar contraseña' : 'Ver contraseña');
 }
 
-function handleCaptchaToggle() {
-    const checked = captchaCheckbox.checked;
-
-    if (checked) {
-        captchaSpinner.classList.remove('d-none');
-        captchaCheckIcon.classList.add('d-none');
-        captchaStatusText.textContent = 'Validando token anti-bot...';
-        captchaStatusText.classList.remove('is-valid');
-
-        window.setTimeout(() => {
-            captchaSpinner.classList.add('d-none');
-            captchaCheckIcon.classList.remove('d-none');
-            captchaStatusText.textContent = 'Identidad validada con éxito';
-            captchaStatusText.classList.add('is-valid');
-            isCaptchaVerified = true;
-        }, 700);
-        return;
-    }
-
-    captchaSpinner.classList.add('d-none');
-    captchaCheckIcon.classList.add('d-none');
-    captchaStatusText.textContent = 'Verificación de seguridad requerida';
-    captchaStatusText.classList.remove('is-valid');
-    isCaptchaVerified = false;
-}
-
 function handleFormSubmit(event) {
     event.preventDefault();
 
     const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
+    const password = passwordInput.value;
 
-    if (!isCaptchaVerified || !email.endsWith('@aeteme.cr') || password.length < 4) {
+    if (!email || !password) {
         showAlert('invalid');
         return;
     }
 
-    showAlert('success');
-    // Cuando la API de autenticación exista, aquí iría el fetch + credenciales.
-}
+    // El frontend solo anticipa la política del servidor (Requerimientos).
+    if (!window.AetemePasswordPolicy || !window.AetemePasswordPolicy.isValid(password)) {
+        showAlert('weakPassword');
+        return;
+    }
 
-function updateEmailBadge() {
-    const value = emailInput.value.trim();
-    const isAeteme = value.includes('@aeteme.cr') && value.length > 11;
-    emailBadge.classList.toggle('d-none', !isAeteme);
+    showAlert('success');
+    // Cuando la API de autenticación exista, aquí iría el fetch + credentials:'include'.
 }
 
 if (alertClose) alertClose.addEventListener('click', dismissAlert);
 if (togglePasswordBtn) togglePasswordBtn.addEventListener('click', togglePasswordVisibility);
 if (recoveryBtn) recoveryBtn.addEventListener('click', () => showAlert('recovery'));
-if (captchaCheckbox) captchaCheckbox.addEventListener('change', handleCaptchaToggle);
-if (emailInput) emailInput.addEventListener('input', updateEmailBadge);
 if (loginForm) loginForm.addEventListener('submit', handleFormSubmit);

@@ -10,7 +10,7 @@ const fases = [
   },
   {
     nombre: 'Fase 1 · Inicio de sesión',
-    detalle: 'AuthLayout, alertas, captcha y campos de formulario',
+    detalle: 'AuthLayout, alertas y campos de formulario',
     estado: 'pendiente',
   },
   {

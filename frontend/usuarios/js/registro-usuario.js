@@ -16,7 +16,6 @@ const errorNombre = document.getElementById('errorNombre');
 const errorCorreo = document.getElementById('errorCorreo');
 const errorPassword = document.getElementById('errorPassword');
 const errorConfirmPassword = document.getElementById('errorConfirmPassword');
-const advertenciaDominio = document.getElementById('advertenciaDominio');
 
 const btnSubmit = document.getElementById('btnSubmitRegistro');
 const btnSubmitTexto = document.getElementById('btnSubmitTexto');
@@ -29,7 +28,6 @@ const labelFortalezaTexto = document.getElementById('labelFortalezaTexto');
 const requisitos = {
     longitud: document.getElementById('reqLongitud'),
     mayuscula: document.getElementById('reqMayuscula'),
-    minuscula: document.getElementById('reqMinuscula'),
     numero: document.getElementById('reqNumero'),
     simbolo: document.getElementById('reqSimbolo')
 };
@@ -103,19 +101,15 @@ function marcarRequisito(elemento, esValido) {
 }
 
 function evaluarFortaleza(clave) {
-    const checks = {
-        longitud: clave.length >= 12,
-        mayuscula: /[A-Z]/.test(clave),
-        minuscula: /[a-z]/.test(clave),
-        numero: /[0-9]/.test(clave),
-        simbolo: /[^A-Za-z0-9]/.test(clave)
-    };
+    const resultado = window.AetemePasswordPolicy.evaluatePassword(clave);
+    const checks = resultado.checks;
 
     Object.keys(checks).forEach((nombre) => {
         marcarRequisito(requisitos[nombre], checks[nombre]);
     });
 
-    const cumplidos = Object.values(checks).filter(Boolean).length;
+    const cumplidos = resultado.cumplidos;
+    const total = resultado.total;
 
     if (clave.length === 0) {
         medidorFortaleza.dataset.level = 'none';
@@ -126,12 +120,11 @@ function evaluarFortaleza(clave) {
     let nivel = 'muy-debil';
     let etiqueta = 'Muy débil';
 
-    // La longitud mínima es indispensable: sin ella la clave nunca supera "Muy débil".
     if (checks.longitud) {
-        if (cumplidos === 5) {
+        if (cumplidos === total) {
             nivel = 'fuerte';
             etiqueta = 'Fuerte';
-        } else if (cumplidos === 4) {
+        } else if (cumplidos === total - 1) {
             nivel = 'aceptable';
             etiqueta = 'Aceptable';
         } else {
@@ -143,8 +136,7 @@ function evaluarFortaleza(clave) {
     medidorFortaleza.dataset.level = nivel;
     labelFortalezaTexto.textContent = etiqueta;
 
-    // La clave provisional solo es válida cuando cumple los cinco requisitos.
-    return { cumplidos, valida: cumplidos === 5 };
+    return { cumplidos, valida: resultado.valida };
 }
 
 function reiniciarFortaleza() {
@@ -192,20 +184,15 @@ function validarCorreo() {
     const patron = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!valor) {
-        mostrarError(inputCorreo, errorCorreo, 'El correo institucional es obligatorio.');
-        advertenciaDominio.classList.add('d-none');
+        mostrarError(inputCorreo, errorCorreo, 'El correo es obligatorio.');
         return false;
     }
     if (!patron.test(valor)) {
         mostrarError(inputCorreo, errorCorreo, 'Por favor ingrese una dirección de correo válida.');
-        advertenciaDominio.classList.add('d-none');
         return false;
     }
 
     limpiarError(inputCorreo, errorCorreo);
-
-    // Se advierte, pero no se bloquea, cuando el dominio no es el federado.
-    advertenciaDominio.classList.toggle('d-none', valor.toLowerCase().endsWith('@aeteme.cr'));
     return true;
 }
 
@@ -218,7 +205,7 @@ function validarPassword() {
         return false;
     }
     if (!evaluacion.valida) {
-        mostrarError(inputPassword, errorPassword, 'La contraseña debe cumplir los 12 caracteres mínimos y todos los requisitos de seguridad.');
+        mostrarError(inputPassword, errorPassword, 'La contraseña debe tener al menos 8 caracteres e incluir una mayúscula, un número y un símbolo.');
         return false;
     }
 
@@ -325,7 +312,6 @@ function registrarOtroUsuario() {
     limpiarError(inputCorreo, errorCorreo);
     limpiarError(inputPassword, errorPassword);
     limpiarError(inputConfirmPassword, errorConfirmPassword);
-    advertenciaDominio.classList.add('d-none');
 
     restablecerTogglePassword(btnTogglePass1, inputPassword);
     restablecerTogglePassword(btnTogglePass2, inputConfirmPassword);

@@ -37,7 +37,7 @@
             <span class="material-symbols-outlined alert-icon" id="dynamicAlertIcon" aria-hidden="true">error</span>
             <div class="alert-content flex-grow-1">
                 <p class="alert-title" id="dynamicAlertTitle">Fallo de Autenticación</p>
-                <p class="alert-message" id="dynamicAlertMessage">Credenciales inválidas o verificación anti-bot sin completar. Verifique su usuario @aeteme.cr y vuelva a intentar.</p>
+                <p class="alert-message" id="dynamicAlertMessage">El correo o la contraseña no son correctos. Verifique y vuelva a intentar.</p>
             </div>
             <button class="alert-close" id="dynamicAlertClose" type="button" aria-label="Descartar aviso">
                 <span class="material-symbols-outlined" aria-hidden="true">close</span>
@@ -52,7 +52,6 @@
                     <span class="material-symbols-outlined input-icon input-icon-start" aria-hidden="true">alternate_email</span>
                     <input class="form-control-aeteme" type="email" id="adminEmail" name="email"
                            placeholder="usuario@aeteme.cr" autocomplete="email" required>
-                    <span class="material-symbols-outlined input-badge d-none" id="emailValidBadge" aria-hidden="true">verified</span>
                 </div>
             </div>
 
@@ -64,29 +63,12 @@
                 <div class="input-field mt-1">
                     <span class="material-symbols-outlined input-icon input-icon-start" aria-hidden="true">lock</span>
                     <input class="form-control-aeteme" type="password" id="adminPassword" name="password"
-                           placeholder="••••••••••••" autocomplete="current-password" required minlength="4">
+                           placeholder="••••••••••••" autocomplete="current-password" required minlength="8">
                     <button type="button" class="btn-toggle-password" id="togglePasswordBtn"
                             title="Ver contraseña" aria-label="Ver contraseña" aria-pressed="false">
                         <span class="material-symbols-outlined" id="eyeIcon" aria-hidden="true">visibility</span>
                     </button>
                 </div>
-            </div>
-
-            <!-- Verificación anti-bot (demostración, sin servicio externo) -->
-            <div>
-                <div class="captcha-box" role="group" aria-label="Verificación de seguridad">
-                    <input class="captcha-checkbox" type="checkbox" id="captchaCheckbox" aria-describedby="captchaStatusText">
-                    <label class="captcha-label" for="captchaCheckbox">No soy un robot</label>
-                    <div class="captcha-right">
-                        <div class="captcha-spinner d-none" id="captchaSpinner" aria-hidden="true"></div>
-                        <span class="material-symbols-outlined captcha-check d-none" id="captchaCheckIcon" aria-hidden="true">check_circle</span>
-                        <div class="captcha-brand" aria-hidden="true">
-                            <span class="material-symbols-outlined">shield</span>
-                            <small>Anti-bot</small>
-                        </div>
-                    </div>
-                </div>
-                <p class="captcha-status" id="captchaStatusText" aria-live="polite">Verificación de seguridad requerida</p>
             </div>
 
             <div class="pt-1">
@@ -123,6 +105,7 @@
         </footer>
     </main>
 
+    <script src="js/password-policy.js"></script>
     <script src="js/login.js"></script>
 </body>
 </html>
