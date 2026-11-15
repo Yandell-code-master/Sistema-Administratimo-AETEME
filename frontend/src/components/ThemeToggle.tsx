@@ -6,7 +6,11 @@ function currentTheme(): Theme {
   return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
 }
 
-export default function ThemeToggle() {
+interface ThemeToggleProps {
+  inline?: boolean;
+}
+
+export default function ThemeToggle({ inline }: ThemeToggleProps) {
   const [theme, setTheme] = useState<Theme>(() => currentTheme());
 
   function toggleTheme() {
@@ -25,7 +29,7 @@ export default function ThemeToggle() {
   return (
     <button
       type="button"
-      className="theme-toggle"
+      className={`theme-toggle${inline ? ' theme-toggle--inline' : ''}`}
       onClick={toggleTheme}
       aria-pressed={isDark}
       aria-label={isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'}
