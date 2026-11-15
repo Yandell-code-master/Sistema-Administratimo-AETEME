@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import ThemeToggle from '../components/ThemeToggle';
+import GlowingEffect from '../components/GlowingEffect';
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -11,7 +12,8 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <main className="auth-body">
       <ThemeToggle />
-      <section className="auth-card" aria-labelledby="titulo-login">
+      <section className="auth-card glow-host" aria-labelledby="titulo-login">
+        <GlowingEffect disabled={false} />
         {children}
       </section>
     </main>
