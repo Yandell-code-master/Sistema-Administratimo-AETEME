@@ -1,0 +1,65 @@
+/* ============================================================
+   AETEME · GlowingEffect (port del efecto de Aceternity UI)
+   Anillo de brillo tipo "cometa" sobre el borde de la tarjeta.
+
+   A diferencia del original (que combina background-attachment:
+   fixed con un mask-composite: intersect de dos capas), aquí el
+   arco se pinta directamente como conic-gradient animado con
+   --start, y el recorte al anillo se hace con dos máscaras
+   opacas + mask-composite: exclude. Así el efecto no depende
+   de la interpretación de 'intersect' entre motores.
+
+   Los colores salen de los tokens oklch del design system,
+   por lo que se adapta a modo claro/oscuro sin configuración.
+ ============================================================ */
+
+.glow-host {
+  position: relative;
+}
+
+.glowing-effect {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.glowing-effect--blurred {
+  filter: blur(var(--blur));
+}
+
+.glowing-effect__glow {
+  border-radius: inherit;
+}
+
+.glowing-effect__glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  /* El padding exterior es el grosor del anillo visible. */
+  padding: var(--glowingeffect-border-width);
+  /* Cometa: cuña de color centrada en --start, transparente en el resto del giro. */
+  background: conic-gradient(
+    from calc((var(--start) - var(--spread)) * 1deg) at 50% 50%,
+    transparent 0deg,
+    var(--primary) calc(var(--spread) * 0.45deg),
+    var(--accent) calc(var(--spread) * 1deg),
+    var(--secondary) calc(var(--spread) * 1.55deg),
+    var(--primary) calc(var(--spread) * 2deg),
+    transparent calc(var(--spread) * 2deg)
+  );
+  opacity: var(--active);
+  transition: opacity 0.3s ease;
+  /* Solo el anillo exterior: todo menos el content-box (interior de la tarjeta). */
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+}
