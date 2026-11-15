@@ -343,6 +343,13 @@
 .theme-toggle:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 .theme-toggle .material-symbols-outlined { font-size: 22px; line-height: 1; }
 
+/* Variante para ubicarlo dentro de la barra superior (no fija). */
+.theme-toggle--inline {
+    position: static;
+    top: auto;
+    right: auto;
+}
+
 /* ---- Foco visible para inputs ---- */
 .form-control-aeteme:focus-visible,
 .btn-toggle-password:focus-visible,

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
+import ThemeToggle from '../components/ThemeToggle';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -187,6 +188,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <span className="admin-avatar" aria-hidden="true">
             CS
           </span>
+          <ThemeToggle inline />
           <a className="btn-logout" href="/" title="Cerrar sesión" aria-label="Cerrar sesión">
             <span className="material-symbols-outlined" aria-hidden="true">
               logout
