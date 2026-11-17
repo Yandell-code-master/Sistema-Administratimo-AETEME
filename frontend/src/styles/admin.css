@@ -519,11 +519,6 @@
     color: var(--color-primary);
 }
 
-.user-avatar--pending {
-    background: var(--color-secondary-fixed);
-    color: var(--color-secondary);
-}
-
 .user-name {
     overflow: hidden;
     font-size: var(--font-size-label-lg);
@@ -579,20 +574,6 @@
 }
 
 .status-chip--baja .material-symbols-outlined { font-size: 14px; }
-
-/* Eliminación lógica: el registro permanece visible pero grisado y sin acciones. */
-.user-row--inactive {
-    opacity: 0.55;
-}
-
-.user-row--inactive .user-avatar {
-    filter: grayscale(1);
-}
-
-.user-row--inactive .js-baja {
-    opacity: 0.4;
-    pointer-events: none;
-}
 
 /* ---- Acciones de fila ---- */
 .btn-icon-danger {
@@ -794,27 +775,7 @@
 
 .btn-aeteme-danger .material-symbols-outlined { font-size: 18px; }
 
-/* ============================================================
-   Registro de usuarios
-   (exclusivo de usuarios/registro-usuario.html)
-   ============================================================ */
-
-/* ---- Sub-ítem anidado del menú lateral ---- */
-.sidebar-link--child {
-    margin-left: 1.25rem;
-    padding-block: 0.375rem;
-    font-size: var(--font-size-label-md);
-    line-height: var(--line-height-label-md);
-}
-
-.sidebar-link--child .material-symbols-outlined { font-size: 16px; }
-
-.sidebar-link--child.is-active {
-    background: var(--color-surface-container);
-    color: var(--color-primary);
-    box-shadow: none;
-    font-weight: 600;
-}
+/* Registro de usuarios (pantalla RegistroPage) */
 
 /* ---- Formulario ---- */
 .registro-form {
@@ -874,26 +835,6 @@
 .form-control-aeteme.is-invalid {
     border-color: var(--color-error);
     box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-error) 18%, transparent);
-}
-
-/* ---- Aviso no bloqueante de dominio ---- */
-.input-feedback-warning {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-xs);
-    padding: var(--space-sm);
-    border: 1px solid var(--color-warning-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-warning-container);
-    color: var(--color-on-warning-container);
-    font-size: var(--font-size-body-sm);
-    line-height: var(--line-height-body-sm);
-}
-
-.input-feedback-warning .material-symbols-outlined {
-    flex-shrink: 0;
-    font-size: 16px;
-    line-height: 1.25;
 }
 
 /* ---- Medidor de fortaleza de la contraseña ---- */
