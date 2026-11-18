@@ -1,3 +1,6 @@
+# Variables de entorno locales (secretos, conexiones, claves)
+.env
+
 # Build results
 bin/
 obj/
