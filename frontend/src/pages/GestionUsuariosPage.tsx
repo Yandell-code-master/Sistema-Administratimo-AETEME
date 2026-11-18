@@ -1,32 +1,15 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from '../layouts/AdminLayout';
-import StatusChip from '../components/StatusChip';
-import type { StatusChipVariant } from '../components/StatusChip';
 import ConfirmDialog from '../components/ConfirmDialog';
 import Toast from '../components/Toast';
-
-type EstadoCuenta = 'activo' | 'pendiente' | 'baja';
 
 interface UsuarioAdmin {
   id: string;
   nombre: string;
   correo: string;
   avatar: string;
-  estado: EstadoCuenta;
 }
-
-const CHIP_POR_ESTADO: Record<EstadoCuenta, StatusChipVariant> = {
-  activo: 'active',
-  pendiente: 'pending',
-  baja: 'baja',
-};
-
-const AVATAR_POR_ESTADO: Record<EstadoCuenta, string> = {
-  activo: 'user-avatar--soft',
-  pendiente: 'user-avatar--pending',
-  baja: 'user-avatar--pending',
-};
 
 const USUARIOS_INICIALES: UsuarioAdmin[] = [
   {
@@ -34,21 +17,18 @@ const USUARIOS_INICIALES: UsuarioAdmin[] = [
     nombre: 'Lic. Roberto Méndez Castro',
     correo: 'r.mendez@aeteme.cr',
     avatar: 'RM',
-    estado: 'activo',
   },
   {
     id: 'u-3',
     nombre: 'Lic. Gabriel Fallas Mora',
     correo: 'g.fallas@aeteme.cr',
     avatar: 'GF',
-    estado: 'pendiente',
   },
   {
     id: 'u-4',
     nombre: 'Prof. Marlon Araya Rojas',
     correo: 'm.araya@aeteme.cr',
     avatar: 'MA',
-    estado: 'activo',
   },
 ];
 
@@ -58,7 +38,10 @@ const normalizar = (texto: string) =>
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '');
 
-/* Gestión de Usuarios — pantalla exclusiva del SuperAdministrador (RF-SU-01.02). */
+/* Gestión de Usuarios — pantalla exclusiva del SuperAdministrador (RF-SU-01.02).
+   La eliminación de una cuenta es lógica (Activo = 0 en base de datos), pero la
+   cuenta dada de baja se retira de esta vista: el atributo estado/Activo es un
+   detalle de persistencia y no se muestra. */
 export default function GestionUsuariosPage() {
   const [termino, setTermino] = useState('');
   const [usuarios, setUsuarios] = useState<UsuarioAdmin[]>(USUARIOS_INICIALES);
@@ -75,11 +58,7 @@ export default function GestionUsuariosPage() {
 
   function confirmarBaja() {
     if (!destino) return;
-    setUsuarios((prev) =>
-      prev.map((usuario) =>
-        usuario.id === destino.id ? { ...usuario, estado: 'baja' as const } : usuario,
-      ),
-    );
+    setUsuarios((prev) => prev.filter((usuario) => usuario.id !== destino.id));
     setToast({
       message: `Cuenta de ${destino.nombre} desactivada correctamente`,
       icon: 'person_off',
@@ -176,7 +155,6 @@ export default function GestionUsuariosPage() {
               <tr className="text-label-sm">
                 <th scope="col">Nombre</th>
                 <th scope="col">Correo</th>
-                <th scope="col">Estado</th>
                 <th scope="col" className="text-end">
                   Acciones
                 </th>
@@ -185,24 +163,23 @@ export default function GestionUsuariosPage() {
             <tbody>
               {filtrados.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="text-center text-body-sm text-on-surface-variant p-4">
-                    Ningún usuario coincide con la búsqueda.
+                  <td colSpan={3} className="text-center text-body-sm text-on-surface-variant p-4">
+                    {termino.trim()
+                      ? 'Ningún usuario coincide con la búsqueda.'
+                      : 'No hay usuarios registrados.'}
                   </td>
                 </tr>
               ) : (
                 filtrados.map((usuario) => (
                   <tr
                     key={usuario.id}
-                    className={`user-row${usuario.estado === 'baja' ? ' user-row--inactive' : ''}`}
+                    className="user-row"
                     data-nombre={usuario.nombre}
                     data-correo={usuario.correo}
                   >
                     <td>
                       <div className="user-cell">
-                        <span
-                          className={`user-avatar ${AVATAR_POR_ESTADO[usuario.estado]}`}
-                          aria-hidden="true"
-                        >
+                        <span className="user-avatar user-avatar--soft" aria-hidden="true">
                           {usuario.avatar}
                         </span>
                         <span className="user-name text-on-surface">{usuario.nombre}</span>
@@ -213,25 +190,13 @@ export default function GestionUsuariosPage() {
                         {usuario.correo}
                       </a>
                     </td>
-                    <td className="status-cell">
-                      <StatusChip variant={CHIP_POR_ESTADO[usuario.estado]} />
-                    </td>
                     <td className="text-end action-cell">
                       <button
                         type="button"
                         className="btn-icon-danger js-baja"
                         data-usuario={usuario.nombre}
-                        title={
-                          usuario.estado === 'baja'
-                            ? 'Cuenta ya dada de baja'
-                            : `Dar de baja a ${usuario.nombre}`
-                        }
-                        aria-label={
-                          usuario.estado === 'baja'
-                            ? 'Cuenta ya dada de baja'
-                            : `Dar de baja a ${usuario.nombre}`
-                        }
-                        disabled={usuario.estado === 'baja'}
+                        title={`Dar de baja a ${usuario.nombre}`}
+                        aria-label={`Dar de baja a ${usuario.nombre}`}
                         onClick={() => setDestino(usuario)}
                       >
                         <span className="material-symbols-outlined" aria-hidden="true">

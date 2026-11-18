@@ -16,7 +16,7 @@ const PATRON_NOMBRE = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s.-]+$/;
 const PATRON_CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DEMORA_ENVIO = 1100;
 
-/* Registro de un nuevo usuario Administrador (RF-SU-01.02.01).
+/* Registro de un nuevo usuario Administrador
    Usado por el SuperAdministrador desde Mi Perfil — hoy accesible en /registro. */
 export default function RegistroPage() {
   const [nombre, setNombre] = useState('');
