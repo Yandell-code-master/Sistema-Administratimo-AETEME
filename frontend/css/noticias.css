@@ -1,0 +1,592 @@
+/* ============================================================
+   AETEME · Subsistema de Noticias (listado y formulario)
+   Complementa admin.css y components.css: solo define lo que
+   esas hojas no tienen y usa los tokens de variables.css, por
+   lo que funciona igual en tema claro y oscuro.
+   ============================================================ */
+
+/* ---- Chips de estado adicionales (se suman a .status-chip de admin.css) ----
+   Las mezclas usan oklab: en oklch, mezclar un color con el blanco `oklch(1 0 0)`
+   arrastra el matiz (hue 0) y el tinte sale rosado en lugar del color esperado. */
+.status-chip--draft {
+    background: var(--color-surface-container-high);
+    color: color-mix(in oklab, var(--color-on-surface-variant) 55%, var(--color-on-surface));
+}
+
+.status-chip--scheduled {
+    background: color-mix(in oklab, var(--color-secondary) 14%, var(--color-background));
+    color: color-mix(in oklab, var(--color-secondary) 80%, var(--color-on-surface));
+}
+
+/* Publicada: el chip «activo» existente usa un verde oscuro que en tema oscuro no se lee. */
+.status-chip--published {
+    background: color-mix(in oklab, var(--chart-3) 18%, var(--color-background));
+    color: color-mix(in oklab, var(--chart-3) 40%, var(--color-on-surface));
+}
+
+.status-chip--published .dot { background: var(--chart-3); }
+
+.status-chip--archived {
+    background: color-mix(in oklab, var(--chart-4) 20%, var(--color-background));
+    color: color-mix(in oklab, var(--chart-4) 45%, var(--color-on-surface));
+}
+
+.status-chip--draft .material-symbols-outlined,
+.status-chip--scheduled .material-symbols-outlined,
+.status-chip--archived .material-symbols-outlined { font-size: 14px; }
+
+/* ============================================================
+   Listado
+   ============================================================ */
+
+/* ---- Tarjetas de resumen ---- */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface-container-lowest);
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-label {
+    display: block;
+    color: var(--color-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.stat-value {
+    display: block;
+    color: var(--color-on-surface);
+}
+
+.stat-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-container);
+    color: var(--color-primary);
+}
+
+.stat-icon .material-symbols-outlined { font-size: 24px; }
+
+.stat-icon--publicada { color: var(--color-tertiary-container); }
+.stat-icon--programada { color: var(--color-secondary); }
+.stat-icon--borrador { color: var(--color-outline); }
+.stat-icon--archivada { color: color-mix(in oklab, var(--chart-4) 45%, var(--color-on-surface)); }
+
+/* ---- Filtros ---- */
+.noticias-toolbar { align-items: flex-end; }
+
+.noticias-toolbar .search-field {
+    flex: 1 1 14rem;
+    max-width: 22rem;
+}
+
+.filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.filter-field > span { color: var(--color-on-surface-variant); }
+
+.filter-control {
+    height: 2.5rem;
+    min-width: 0;
+    padding: 0 var(--space-sm);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-container-lowest);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-body-md);
+    line-height: var(--line-height-body-md);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.filter-control:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 18%, transparent);
+}
+
+.noticias-toolbar .btn-aeteme-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    height: 2.5rem;
+    padding-block: 0;
+    border: 1px solid var(--color-outline-variant);
+}
+
+.noticias-toolbar .btn-aeteme-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.noticias-toolbar .btn-aeteme-secondary .material-symbols-outlined { font-size: 18px; }
+
+/* ---- Celda de noticia ---- */
+/* Fondo de las noticias sin imagen (miniatura del listado y vista previa). */
+.noticia-thumb,
+.noticia-preview-media {
+    background: linear-gradient(
+        145deg,
+        color-mix(in oklab, var(--color-secondary) 16%, var(--color-background)),
+        var(--color-surface-container)
+    );
+    color: var(--color-secondary);
+}
+
+.noticia-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    min-width: 0;
+    max-width: 30rem;
+}
+
+.noticia-thumb {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 4rem;
+    height: 3rem;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+.noticia-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.noticia-thumb .material-symbols-outlined { font-size: 24px; }
+
+.noticia-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.noticia-title,
+.noticia-excerpt {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.noticia-title {
+    font-size: var(--font-size-label-lg);
+    font-weight: 600;
+    color: var(--color-on-surface);
+}
+
+.noticia-excerpt { color: var(--color-on-surface-variant); }
+
+.category-pill {
+    display: inline-flex;
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-full);
+    background: var(--color-surface-container-low);
+    color: color-mix(in oklab, var(--color-on-surface-variant) 65%, var(--color-on-surface));
+    white-space: nowrap;
+}
+
+.fecha-cell { white-space: nowrap; }
+
+/* Eliminación lógica: la noticia sigue visible para gestión pero grisada y sin acciones. */
+.noticia-row--inactive { opacity: 0.55; }
+.noticia-row--inactive .noticia-thumb { filter: grayscale(1); }
+
+.noticia-row--inactive .btn-icon-aeteme,
+.noticia-row--inactive .btn-icon-danger {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ---- Acciones de fila ---- */
+.row-actions {
+    display: inline-flex;
+    gap: var(--space-xs);
+}
+
+.btn-icon-aeteme {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm);
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: transparent;
+    color: var(--color-on-surface-variant);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.btn-icon-aeteme:hover:not(:disabled) {
+    background: var(--color-surface-container);
+    color: var(--color-primary);
+}
+
+.btn-icon-aeteme:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+}
+
+.btn-icon-aeteme .material-symbols-outlined { font-size: 19px; }
+
+/* ---- Pie de la tabla y paginación ---- */
+.panel-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    border-top: 1px solid var(--color-surface-container-low);
+    color: var(--color-on-surface-variant);
+}
+
+.pager {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+}
+
+.pager-btn {
+    display: inline-grid;
+    place-items: center;
+    min-width: 2.25rem;
+    height: 2.25rem;
+    padding: 0 var(--space-sm);
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: transparent;
+    color: var(--color-on-surface-variant);
+    font-size: var(--font-size-label-lg);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.pager-btn:hover:not(:disabled):not([aria-current='page']) {
+    background: var(--color-surface-container-high);
+    color: var(--color-on-surface);
+}
+
+.pager-btn[aria-current='page'] {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    cursor: default;
+}
+
+.pager-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.pager-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+}
+
+.pager-btn .material-symbols-outlined { font-size: 20px; }
+
+/* ---- Estado vacío (noticia no encontrada o sin acceso) ---- */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xl) var(--space-lg);
+    text-align: center;
+}
+
+.empty-state-icon {
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background: var(--color-surface-container);
+    color: var(--color-outline);
+}
+
+.empty-state-icon .material-symbols-outlined { font-size: 40px; }
+
+.empty-state .btn-aeteme-primary { margin-top: var(--space-sm); }
+
+/* ============================================================
+   Formulario de noticia (crear / editar)
+   ============================================================ */
+/* Escritorio: contenido y acciones a la izquierda; ajustes, imagen y vista previa a la derecha. */
+.noticia-editor {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 22rem;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+}
+
+.noticia-editor-side {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.editor-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+}
+
+.editor-section-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: 0;
+    color: var(--color-on-surface);
+}
+
+.editor-section-title .material-symbols-outlined {
+    font-size: 20px;
+    color: var(--color-primary);
+}
+
+/* En tema oscuro --color-error es un rojo oscuro pensado para fondos (1.5:1 como texto). */
+.noticia-editor .input-feedback-error { color: var(--color-on-error-container); }
+
+/* Campos que no llevan ícono lateral. */
+.form-control-aeteme--area {
+    height: auto;
+    min-height: 15rem;
+    padding: 0.75rem 1rem;
+    line-height: 1.55;
+    resize: vertical;
+}
+
+.form-control-aeteme--file {
+    padding: 0 var(--space-sm);
+    cursor: pointer;
+}
+
+.form-control-aeteme--file::file-selector-button {
+    height: 1.75rem;
+    margin-right: var(--space-sm);
+    padding: 0 var(--space-sm);
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-container-high);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-label-md);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* ---- Imagen destacada ---- */
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.image-upload-preview {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 1px dashed var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface-container-low);
+    color: var(--color-outline);
+}
+
+.image-upload-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-upload-preview .material-symbols-outlined { font-size: 40px; }
+
+.image-upload .btn-aeteme-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    align-self: flex-start;
+    border: 1px solid var(--color-outline-variant);
+}
+
+.image-upload .btn-aeteme-secondary .material-symbols-outlined { font-size: 18px; }
+
+/* ---- Vista previa (tarjeta de noticia del portal público) ---- */
+.noticia-preview {
+    overflow: hidden;
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    background: var(--color-background);
+}
+
+.noticia-preview-media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+}
+
+.noticia-preview-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.noticia-preview-media > .material-symbols-outlined { font-size: 40px; }
+
+.noticia-preview-tag {
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    padding: 2px var(--space-sm);
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.noticia-preview-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+}
+
+.noticia-preview-date { color: var(--color-outline); }
+
+.noticia-preview-title,
+.noticia-preview-excerpt {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    -webkit-box-orient: vertical;
+}
+
+.noticia-preview-title {
+    -webkit-line-clamp: 3;
+    color: var(--color-on-surface);
+}
+
+.noticia-preview-excerpt {
+    -webkit-line-clamp: 3;
+    color: var(--color-on-surface-variant);
+}
+
+.noticia-preview .is-placeholder {
+    color: var(--color-outline);
+    font-style: italic;
+}
+
+/* ---- Acciones del formulario ---- */
+.noticia-editor-actions {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-sm);
+}
+
+.noticia-editor-actions .btn-aeteme-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    border: 1px solid var(--color-outline-variant);
+    text-decoration: none;
+}
+
+.noticia-editor-actions .btn-aeteme-secondary .material-symbols-outlined { font-size: 18px; }
+
+/* ============================================================
+   Adaptación a pantallas medianas y pequeñas
+   ============================================================ */
+/* Listado en laptops y tabletas: las columnas Categoría y Publicación pasan a una línea bajo el
+   título (.noticia-meta) para que las acciones queden a la vista sin desplazamiento lateral. */
+.noticia-meta { display: none; color: var(--color-on-surface-variant); }
+
+@media (max-width: 1399.98px) {
+    .col-categoria,
+    .col-fecha,
+    .noticia-excerpt { display: none; }
+
+    .noticia-meta { display: block; }
+
+    .noticia-cell {
+        min-width: 14rem;
+        max-width: 20rem;
+    }
+
+    .noticia-title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        white-space: normal;
+    }
+}
+
+/* Formulario: una sola columna en el orden del documento (contenido, ajustes, acciones). */
+@media (max-width: 1199.98px) {
+    .noticia-editor {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: none;
+    }
+
+    .noticia-editor-side,
+    .noticia-editor-actions {
+        grid-column: auto;
+        grid-row: auto;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .editor-section { padding: var(--space-md); }
+    .noticias-toolbar .search-field { max-width: none; }
+}
+
+@media (max-width: 575.98px) {
+    /* Tarjetas de resumen en cuadrícula de 2 × 2: sin ícono para que quepa la etiqueta. */
+    .stat-card { padding: var(--space-sm) var(--space-md); }
+    .stat-icon { display: none; }
+
+    .noticia-editor-actions > * {
+        flex: 1 1 100%;
+        justify-content: center;
+    }
+
+    .panel-footer { justify-content: center; }
+}
