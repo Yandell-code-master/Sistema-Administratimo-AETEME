@@ -19,7 +19,39 @@ services:
     build: ./backend
     ports:
       - "8080:8080"
+    # Montamos el código para que dotnet watch recompile al guardar.
+    # Los volúmenes anónimos de obj/bin evitan mezclar artefactos del host (Windows)
+    # con los generados dentro del contenedor (Linux).
     volumes:
       - ./backend:/app
       - /app/API/API/obj
       - /app/API/API/bin
+    environment:
+      # .NET toma esta cadena como conectividad desde el host de desarrollo.
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=aeteme_dev;Username=aeteme_admin;Password=${POSTGRES_PASSWORD}"
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: aeteme_dev
+      POSTGRES_USER: aeteme_admin
+      # Si no hay .env, se usa la contraseña de desarrollo; sobrescribirla fuera del repo.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-aeteme_dev_password}
+    # En desarrollo se publica el puerto para conectarse desde el host (pgAdmin, psql).
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - aeteme_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
+
+volumes:
+  # Volumen persistente PostgreSQL; se puede borrar con `docker compose down -v`
+  # si se quiere una base de datos limpia (p. ej. antes de migrations finales).
+  aeteme_pg_data:
