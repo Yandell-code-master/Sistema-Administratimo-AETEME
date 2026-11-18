@@ -5,6 +5,7 @@
    Bootstrap se importa antes en main.tsx, este archivo gana.
    ============================================================ */
 
-@import './styles/variables.css';
-@import './styles/components.css';
-@import './styles/admin.css';
+@import '../styles/variables.css';
+@import '../styles/components.css';
+@import '../styles/admin.css';
+@import '../styles/noticias.css';

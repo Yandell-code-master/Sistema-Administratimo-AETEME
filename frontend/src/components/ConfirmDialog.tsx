@@ -5,16 +5,24 @@ interface ConfirmDialogProps {
   title: string;
   description: string;
   confirmLabel?: string;
+  icon?: string;
+  note?: string;
+  confirmIcon?: string;
   onConfirm: () => void;
   onClose: () => void;
 }
 
-/* Modal genérico de confirmación que usa <dialog> nativo (estilo .confirm-dialog). */
+/* Modal genérico de confirmación que usa <dialog> nativo (estilo .confirm-dialog).
+   `icon`, `note` y `confirmIcon` son opcionales: sin ellos conserva el texto y los íconos
+   de la baja de usuarios. */
 export default function ConfirmDialog({
   open,
   title,
   description,
   confirmLabel = 'Confirmar',
+  icon = 'warning',
+  note = 'La baja es lógica: la cuenta y su historial quedan registrados, pero el acceso se bloquea de forma permanente.',
+  confirmIcon = 'person_off',
   onConfirm,
   onClose,
 }: ConfirmDialogProps) {
@@ -55,7 +63,7 @@ export default function ConfirmDialog({
         <div className="confirm-dialog-head">
           <div className="confirm-dialog-icon">
             <span className="material-symbols-outlined" aria-hidden="true">
-              warning
+              {icon}
             </span>
           </div>
           <div>
@@ -71,10 +79,7 @@ export default function ConfirmDialog({
           <span className="material-symbols-outlined" aria-hidden="true">
             info
           </span>
-          <span>
-            La baja es lógica: la cuenta y su historial quedan registrados, pero el acceso se
-            bloquea de forma permanente.
-          </span>
+          <span>{note}</span>
         </div>
       </div>
 
@@ -84,7 +89,7 @@ export default function ConfirmDialog({
         </button>
         <button type="button" className="btn-aeteme-danger text-label-md" onClick={onConfirm}>
           <span className="material-symbols-outlined" aria-hidden="true">
-            person_off
+            {confirmIcon}
           </span>
           <span>{confirmLabel}</span>
         </button>

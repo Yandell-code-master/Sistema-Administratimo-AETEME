@@ -87,12 +87,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </a>
 
             <span className="sidebar-group-label text-label-sm">Gestión Contenido</span>
-            <a className="sidebar-link" href="#">
+            <NavLink to="/noticias" className={linkClass} onClick={() => setIsOpen(false)}>
               <span className="material-symbols-outlined" aria-hidden="true">
                 newspaper
               </span>
               Noticias Deportivas
-            </a>
+            </NavLink>
             <a className="sidebar-link" href="#">
               <span className="material-symbols-outlined" aria-hidden="true">
                 emoji_events
